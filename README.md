@@ -26,6 +26,7 @@ After substantial years of experience, one document can't serve every purpose. A
 | Operations | `CLAUDE.md` | **The agent brief** — workflows, hard rules, and defenses |
 | Log | `HISTORY.md` | Generation log and operational history, kept out of the working files |
 | Bootstrap | `BOOTSTRAP.md` | One-time process: distill your historical resume archive into the corpus |
+| Prep rendering | `.claude/skills/interview-prep-html/` | Bundled agent skill: interview prep packs as self-contained HTML pages, not markdown |
 
 ## Design principles
 

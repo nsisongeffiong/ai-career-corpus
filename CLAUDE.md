@@ -31,6 +31,7 @@ Philosophy: not a "master resume." Career data is structured by **intent** — s
 | `09 - Resume Style Spec.md` | Exact .docx rendering contract — read instead of parsing a .docx |
 | `10 - Job Search Profile.md` | Targeting definition — scout filter + scorer rubric for the job-search agent |
 | `BOOTSTRAP.md` | One-time distillation of a historical resume archive into the corpus — read only when running that process |
+| `.claude/skills/interview-prep-html/` | Bundled skill: render interview prep packs as self-contained HTML (agent-agnostic plain instructions) |
 
 ## Critical user-stated facts
 
@@ -77,6 +78,12 @@ Draw on STAR stories (compressed to 2-3 sentences), Portfolio (character evidenc
 Structure (~300-350 words, 1 page): (1) Hook — why this company/role, no "I am writing to apply"; (2) Proof — ONE STAR story the resume can't tell; (3) Fit — 2-3 sentences linking remaining JD priorities to corpus facts; (4) Short confident close.
 
 Rules: same honesty constraints as resumes; ban "I am excited to / proven track record / passionate about / dynamic / results-driven"; header identical to resume; markdown draft first, then render per `00` naming conventions; tell the user which STAR story it spends (they may hold it for interview). If a writing-craft/editing skill is available in the session, use it for **clarity only** (cut adverbs, concrete nouns, delete throat-clearing) — never for register; VOICE-PROFILE wins on voice.
+
+## Workflow: interview prep
+
+Read `05 STAR Stories` + `03 Portfolio` + `01 Spine` (+ the saved `Job Description.md` when prepping a specific interview — and check that application's folder for which STAR story the cover letter already spent). Build the prep pack: likely questions mapped to the 10 themes, which story to spend where, JD-specific talking points, honest gaps to have answers ready for.
+
+**Render the prep pack as a self-contained HTML file, not a .md** — the `interview-prep-html` skill bundled at `.claude/skills/interview-prep-html/SKILL.md` covers the how (Claude Code picks it up automatically; any other agent can be pointed at the file — it's plain instructions). Output `Interview Prep.html` to the role's Per-Application folder (gitignored). Facts come only from the corpus; the HTML is a rendering, never a new source of truth — grounding rule and honesty constraints apply unchanged. The em-dash ban does NOT apply (private study material, never submitted).
 
 ## ATS keyword matching (Workday/Taleo/SuccessFactors/iCIMS)
 

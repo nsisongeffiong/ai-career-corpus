@@ -32,8 +32,9 @@ exports/
 *.pfx
 private-terms.txt
 
-# Local agent settings
-.claude/
+# Local agent settings (bundled skills in .claude/skills/ DO ship)
+.claude/*
+!.claude/skills/
 
 # Tooling and OS noise
 __pycache__/
