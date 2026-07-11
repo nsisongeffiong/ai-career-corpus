@@ -14,9 +14,14 @@ This file is written **for the AI agent**. Your part:
 
 The catch that shapes the whole process: **JD-tailored resumes inflate.** They stretch dates, round metrics up, borrow adjacent tools, and misattribute wins to whichever role the JD favored. So bootstrapping is extraction *plus verification* — the archive is a lead-generator, never a source of truth.
 
-## Phase 0 — Gather sources (once)
+## Phase 0 — Gather sources and check the environment (once)
 
 Collect into one place: every archived resume version, old cover letters, a LinkedIn data export, performance reviews, and any project folders/emails that document side ventures. **Convert binaries to text once** — extracting the same .docx in every future session is the cost sink this repo's cost rules exist to prevent.
+
+Two setup checks before any mining:
+
+- **Detach from the template remote.** If this corpus folder is a git clone of the public template, run `git remote remove origin` NOW, before anything real enters a file. A filled corpus must never share a remote with a public repo — one habitual `git push` publishes everything, and the template's own author has write access to that remote. Keep git itself for local history.
+- **Check for Python 3** (`python3 --version`, or `py --version` on Windows — beware the Windows Store stub that answers to `python` but isn't an install). Phase 6's publish gate needs it. If it's missing, tell the user now and ask whether to install it — don't let the gate become a surprise at the finish line.
 
 ## Phase 1 — Seed the spine from 2-3 recent resumes with different lenses
 
@@ -28,6 +33,8 @@ Build `01 - Career Spine.md` from them: one entry per role, achievements in Cont
 
 Now sweep everything else. For each archived resume: find any bullet containing a number, paste it into `04 - Quantified Wins Bank.md` in standard format, tag it, move on. Capture first, polish later — the goal is coverage (50-100 wins), not prose. Deduplicate as you go; the same win appears across many resume versions with drifting numbers, and **when versions disagree, that's a flag for Phase 3, not a choice for the agent to make silently.**
 
+Annotate every mined win with its source consistency — *(high confidence — consistent across N versions)*, *(single-source — appears in 1 of M)*, or *(CONFLICT: the two framings)*. These annotations set Phase 3's triage order: conflicts first, single-source claims second, consistent claims last.
+
 ## Phase 3 — The verification pass (the step that makes the corpus trustworthy)
 
 Sit with the user and go claim by claim. Batch the questions — "confirm or correct these 15 numbers" beats 15 interruptions. For each win:
@@ -38,6 +45,8 @@ Sit with the user and go claim by claim. Batch the questions — "confirm or cor
 - **Log corrections in `HISTORY.md`** — the corpus keeps only the corrected fact; the history of the error lives in the log.
 
 Annotate verified items ("user-confirmed [date]") so future sessions can tell validated facts from estimates.
+
+Close the pass by filling `CLAUDE.md`'s **Critical user-stated facts** section with what the verification resolved: the canonical career span (and the stale figures never to copy forward), killed claims that must never resurface, entity distinctions (e.g. a client that must never be written up as an employer), and current-vs-stale contact facts.
 
 ## Phase 4 — Derive the Skills Matrix
 
@@ -56,4 +65,4 @@ Either way, the phase ends with every placeholder in `09` replaced by a concrete
 
 Record in `HISTORY.md` that the archive is fully mined, with the date. From then on, **no session ever re-reads the archive** — everything useful is in the corpus as text, and re-parsing old binaries is pure cost. The archive can be compressed or deleted.
 
-Then arm the publish gate: **generate `private-terms.txt`** (it's gitignored — it never leaves the machine) from the corpus you just filled — the user's names, employers, clients, cities, and email/phone fragments, one term per line. That file is the blocklist `scripts/validate_corpus.py` scans for, and building it from the filled corpus means the gate knows exactly what a leak of *this* corpus looks like. Run the script once to confirm it now fails loudly — a filled corpus that passes the gate means the blocklist is too thin, not that the corpus is publishable.
+Then arm the publish gate (requires the Python 3 checked for in Phase 0): **generate `private-terms.txt`** (it's gitignored — it never leaves the machine) from the corpus you just filled — the user's names, employers, clients, cities, and email/phone fragments, one term per line. That file is the blocklist `scripts/validate_corpus.py` scans for, and building it from the filled corpus means the gate knows exactly what a leak of *this* corpus looks like. Run the script once to confirm it now fails loudly — a filled corpus that passes the gate means the blocklist is too thin, not that the corpus is publishable.
